@@ -1,4 +1,5 @@
-FROM docker:latest
+FROM tomcat:8.0-alpine
+
 
 # By default, Docker containers run as the root user. This is bad because:
 #   1) You're more likely to modify up settings that you shouldn't be
@@ -8,15 +9,15 @@ FROM docker:latest
 ## CREATE APP USER ##
 
 # Create the home directory for the new app user.
-#RUN mkdir -p /home/dockeruser
+#RUN mkdir -p /home/AppUser
 
 # Create an app user so our program doesn't run as root.
-RUN groupadd -r dockergroup &&\
-    useradd -r -m -g dockergroup -d /home/dockeruser -s /sbin/nologin -c "Docker image user" dockeruser
+RUN groupadd -r AppGroup &&\
+    useradd -r -m -g AppGroup -s /sbin/nologin -c "App User" AppUser
 
 # Set the home directory to our app user's home.
-ENV HOME=/home/dockeruser
-#ENV APP_HOME=/home/dockeruser/my-app
+#ENV HOME=/home/AppUser
+#ENV APP_HOME=/home/AppUser/my-app
 
 ## SETTING UP THE APP ##
 #RUN mkdir $APP_HOME
@@ -26,11 +27,17 @@ ENV HOME=/home/dockeruser
 # Do any custom logic needed prior to adding your code here
 # ***
 
+
 # Copy in the application code.
-#ADD . $APP_HOME
+
+ADD sample.war /usr/local/tomcat/webapps/
+
+EXPOSE 8080
 
 # Chown all the files to the app user.
-#RUN chown -R dockeruser:dockergroup $APP_HOME
+#RUN chown -R AppUser:AppGroup $APP_HOME
 
 # Change to the app user.
-USER dockeruser
+USER AppUser
+
+CMD ["catalina.sh", "run"]
