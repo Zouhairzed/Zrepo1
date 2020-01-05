@@ -8,19 +8,19 @@ FROM docker:latest
 ## CREATE APP USER ##
 
 # Create the home directory for the new app user.
-RUN mkdir -p /home/dockeruser
+#RUN mkdir -p /home/dockeruser
 
 # Create an app user so our program doesn't run as root.
 RUN groupadd -r dockergroup &&\
-    useradd -r -g dockergroup -d /home/dockeruser-s /sbin/nologin -c "Docker image user" dockeruser
+    useradd -r -m -g dockergroup -d /home/dockeruser -s /sbin/nologin -c "Docker image user" dockeruser
 
 # Set the home directory to our app user's home.
 ENV HOME=/home/dockeruser
-ENV APP_HOME=/home/dockeruser/my-project
+#ENV APP_HOME=/home/dockeruser/my-app
 
 ## SETTING UP THE APP ##
-RUN mkdir $APP_HOME
-WORKDIR $APP_HOME
+#RUN mkdir $APP_HOME
+#WORKDIR $APP_HOME
 
 # ***
 # Do any custom logic needed prior to adding your code here
@@ -30,7 +30,7 @@ WORKDIR $APP_HOME
 #ADD . $APP_HOME
 
 # Chown all the files to the app user.
-RUN chown -R dockeruser:dockergroup $APP_HOME
+#RUN chown -R dockeruser:dockergroup $APP_HOME
 
 # Change to the app user.
 USER dockeruser
