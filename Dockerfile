@@ -1,4 +1,4 @@
-From docker:latest
+FROM docker:latest
 
 # By default, Docker containers run as the root user. This is bad because:
 #   1) You're more likely to modify up settings that you shouldn't be
