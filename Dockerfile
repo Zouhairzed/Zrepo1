@@ -30,7 +30,7 @@ RUN groupadd -r AppGroup &&\
 
 # Copy in the application code.
 
-ADD sample.war /usr/local/tomcat/webapps/
+ADD SampleWebApp.war /usr/local/tomcat/webapps/
 
 EXPOSE 8080
 
