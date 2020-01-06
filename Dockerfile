@@ -12,8 +12,8 @@ FROM tomcat:8.0-alpine
 #RUN mkdir -p /home/AppUser
 
 # Create an app user so our program doesn't run as root.
-RUN groupadd -r AppGroup &&\
-    useradd -r -m -g AppGroup -s /sbin/nologin -c "App User" AppUser
+RUN addgroup -r AppGroup &&\
+    adduser -r -m -g AppGroup -s /sbin/nologin -c "App User" AppUser
 
 # Set the home directory to our app user's home.
 #ENV HOME=/home/AppUser
