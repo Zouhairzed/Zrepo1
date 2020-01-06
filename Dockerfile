@@ -27,7 +27,7 @@ ADD SampleWebApp.war /usr/local/tomcat/webapps/
 EXPOSE 8080
 
 # Chown all the files to the app user.
-#RUN chown -R AppUser:AppGroup $APP_HOME
+RUN chown -R appuser:appgroup /usr/local/tomcat
 
 # Change to the app user.
 USER appuser
