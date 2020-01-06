@@ -8,20 +8,12 @@ FROM tomcat:8.0-alpine
 
 ## CREATE APP USER ##
 
-# Create the home directory for the new app user.
-#RUN mkdir -p /home/AppUser
-
 # Create an app user so our program doesn't run as root.
-RUN addgroup -r AppGroup &&\
-    adduser -r -m -g AppGroup -s /sbin/nologin -c "App User" AppUser
+RUN addgroup -S appgroup && adduser -S appuser -G appgroup
 
 # Set the home directory to our app user's home.
 #ENV HOME=/home/AppUser
 #ENV APP_HOME=/home/AppUser/my-app
-
-## SETTING UP THE APP ##
-#RUN mkdir $APP_HOME
-#WORKDIR $APP_HOME
 
 # ***
 # Do any custom logic needed prior to adding your code here
@@ -38,6 +30,6 @@ EXPOSE 8080
 #RUN chown -R AppUser:AppGroup $APP_HOME
 
 # Change to the app user.
-USER AppUser
+USER appuser
 
 CMD ["catalina.sh", "run"]
