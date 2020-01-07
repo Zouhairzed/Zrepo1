@@ -1,4 +1,5 @@
-FROM tomcat:8.0-alpine
+
+RUN chown -R appuser:appgroup /usr/local/tomcatFROM tomcat:8.0-alpine
 
 
 # By default, Docker containers run as the root user. This is bad because:
@@ -20,14 +21,15 @@ RUN addgroup -S appgroup && adduser -S appuser -G appgroup
 # ***
 
 
-# Copy in the application code.
-
-ADD SampleWebApp.war /usr/local/tomcat/webapps/
-
-EXPOSE 8080
-
 # Chown all the files to the app user.
 RUN chown -R appuser:appgroup /usr/local/tomcat
+
+# Copy in the application code.
+ADD SampleWebApp.war /usr/local/tomcat/webapps/
+
+# Port d'écoute
+EXPOSE 8080
+
 
 # Change to the app user.
 USER appuser
