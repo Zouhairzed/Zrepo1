@@ -1,5 +1,5 @@
 
-RUN chown -R appuser:appgroup /usr/local/tomcatFROM tomcat:8.0-alpine
+FROM tomcat:8.0-alpine
 
 
 # By default, Docker containers run as the root user. This is bad because:
